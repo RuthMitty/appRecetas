@@ -15,12 +15,13 @@ export default function App() {
     <>
        <LinearGradient
         // Background Linear Gradient
-        colors={['#FBF5F2', '#FAC3BE']}
+        colors={['#FBF5F2', '#AEAFEB']}
         start={{ x: 0, y: 0.8 }}
         end={{ x: 0, y: 1.0 }}
         style={styles.gradiente}
       >
         <View style={styles.container}>
+          <Text style={styles.titulo}>Welcome to the app!</Text>
           <Busqueda 
             setDatosReceta={setDatosReceta}
             setError={setError}
@@ -41,6 +42,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  titulo: {
+    fontSize: 20,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -51,6 +55,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   lista: {
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    marginHorizontal: 20,
+    flex: 1
   }
 });
