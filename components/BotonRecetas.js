@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 // Componente para mostrar un botón de receta con una breve descripción
-export default function BotonRecetas ({ receta, onPress }) {
+export default function BotonRecetas ({ receta, onPress}) {
   return (
     <View style={styles.container}>
       <View style={styles.textBox}>

@@ -14,10 +14,7 @@ export default function Busqueda({setDatosReceta, setError}) {
       const res =  await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${receta}`)
       const data = await res.json()
       setDatosReceta(data.results)
-      console.log(data)
-      // Con los id llamamos a cada receta en la busqueda
-      const ids = datosReceta.map(result => result.id);
-      console.log(ids);
+      
       setError(null)
     } catch (err) {
       setError("Error finding recipe data")

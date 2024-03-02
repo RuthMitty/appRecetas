@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Busqueda from './components/Busqueda';
 import BotonRecetas from './components/BotonRecetas';
+import InfoReceta from './components/infoReceta';
 import { LinearGradient } from 'expo-linear-gradient';
-// npx expo install expo-linear-gradient
+
 
 export default function App() {
 
   //State para almacenar los datos de la receta cuando se hace la peticion a la AOI
   const [datosReceta, setDatosReceta] = useState(null)
   const [error, setError] = useState(null)
-
+  const [recetaElegida, setRecetaElegida] = useState(null)
+  
   return (
     <>
        <LinearGradient
@@ -26,15 +28,31 @@ export default function App() {
             setDatosReceta={setDatosReceta}
             setError={setError}
           ></Busqueda>
-          <FlatList
-          style={styles.lista}
-          data={datosReceta}
-          renderItem={({ item }) => (
-            <BotonRecetas receta={item} onPress={(id) => console.log('Ver receta con ID:', id)} 
-          />
-      )}
-      keyExtractor={(item) => item.id.toString()}
-      />
+
+          {recetaElegida ? (
+            
+            <InfoReceta 
+              title={recetaElegida.title}
+              image={recetaElegida.image}
+              id={recetaElegida.id}
+              setError={setError}
+              setRecetaElegida={setRecetaElegida}
+            >
+            </InfoReceta>
+          ):
+            <FlatList
+              style={styles.lista}
+              data={datosReceta}
+              renderItem={({ item }) => (
+                <BotonRecetas 
+                  receta={item} 
+                  onPress={() => setRecetaElegida({id: item.id, title: item.title, image: item.image})} 
+              />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              />
+          }
+          
     </View>
       </LinearGradient>
     </>
