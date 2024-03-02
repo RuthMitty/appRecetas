@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Image, View, Platform, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
 
-function Busqueda({setDatosReceta, setError}) {
-  const [receta, setReceta] = useState("")
-  const apiKey = "c972c496c0404b048eff89275660a2f6"
+
+// import EStyleSheet from 'react-native-extended-stylesheet';
+
+export default function Busqueda({setDatosReceta, setError}) {
+  const [receta, setReceta] = useState("");
+  const apiKey = "c972c496c0404b048eff89275660a2f6";
 
   //Obtener la receta de la API
-  const getReceta = async () =>{
+  const getRecetas = async () =>{
     try {
       const res =  await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${receta}`)
       const data = await res.json()
-      setDatosReceta(data)
+      setDatosReceta(data.results)
+      
       setError(null)
     } catch (err) {
       setError("Error finding recipe data")
@@ -19,27 +22,30 @@ function Busqueda({setDatosReceta, setError}) {
   }
 
   useEffect(() =>{
-    receta ? getReceta : setDatosReceta(null)
+    receta ? getRecetas : setDatosReceta(null)
   }, [receta])
 
   return (
-    <>
+    <View style={styles2.container}>
         <View style={styles2.inputWrapper}>
             <TextInput 
                 style={styles2.input}
                 placeholder='Enter recipe name'
                 value={receta}
-                onChangeText={(text) => setReceta()}  
+                onChangeText={(text) => setReceta(text)} 
             />
         </View>
-        <TouchableOpacity style={styles2.button} onPress={getReceta}>
-          <Text>Obtener Receta</Text>
+        <TouchableOpacity style={styles2.button} onPress={getRecetas}>
+          <Text>Obtain recipe</Text>
         </TouchableOpacity>
-    </>
+    </View>
   )
 }
 
   const styles2 = StyleSheet.create({
+    container: {
+      paddingVertical: 20
+    },
     inputWrapper:{
         backgroundColor: "#eee",
         padding: 10,
@@ -62,8 +68,7 @@ function Busqueda({setDatosReceta, setError}) {
       backgroundColor: "lightcoral",
       padding: 10,
       margin: 10,
-      borderRadius: 10
+      borderRadius: 10,
+      alignItems: 'center'
     }
   });
-
-export default Busqueda
