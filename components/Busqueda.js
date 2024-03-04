@@ -65,7 +65,7 @@ export default function Busqueda({setDatosReceta, setError}) {
       textAlign:"center"
     },
     button:{
-      backgroundColor: "lightcoral",
+      backgroundColor: '#ACD4EA',
       padding: 10,
       margin: 10,
       borderRadius: 10,
